@@ -1,0 +1,63 @@
+{
+    "name": "@armathai/pixi-sound",
+    "version": "1.0.0",
+    "description": "Playback library for Pixi.js",
+    "main": "bin/pixi-sound.js",
+    "types": "bin/pixi-sound.d.ts",
+    "scripts": {
+        "test": "jest --config jestconfig.json",
+        "start": "npx parcel src/__examples__/index.html",
+        "build-examples": "npx parcel build src/__examples__/index.html --public-url ./ --no-minify",
+        "make:dts": "node scripts/make_dts.js",
+        "uglify": "node scripts/uglify.js",
+        "build": "webpack --config ./webpack/webpack.js && tsc && npm run make:dts && npm run uglify",
+        "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+        "lint": "tsc --noEmit && eslint '*/**/*.{js,ts,ts}'  --fix",
+        "prepare": "npm run build --scripts-prepend-node-path",
+        "prepublishOnly": "npm test && npm run lint"
+    },
+    "repository": {
+        "url": "git@github.com:armathai/pixi-sound.git"
+    },
+    "keywords": [
+        "pixijs5",
+        "pixijs",
+        "pixi.js",
+        "pixi",
+        "sound"
+    ],
+    "author": "armathai LLC",
+    "license": "MIT",
+    "homepage": "https://github.com/armathai/pixi-sound#readme",
+    "peerDependencies": {
+        "pixi.js": ">=5.0.0"
+    },
+    "devDependencies": {
+        "@types/howler": "^2.2.1",
+        "@types/jest": "^26.0.13",
+        "@types/node": "^14.6.4",
+        "@typescript-eslint/eslint-plugin": "^3.10.1",
+        "@typescript-eslint/parser": "^3.10.1",
+        "clean-webpack-plugin": "^3.0.0",
+        "eslint": "^7.8.1",
+        "eslint-config-prettier": "^6.11.0",
+        "eslint-plugin-prettier": "^3.1.3",
+        "jest": "^26.4.2",
+        "line-reader": "^0.4.0",
+        "parcel-bundler": "^1.12.4",
+        "pixi.js": "^5.3.3",
+        "prettier": "^2.1.1",
+        "ts-jest": "^26.3.0",
+        "tslint-config-prettier": "^1.18.0",
+        "typescript": "^3.9.7",
+        "uglify-js": "^3.10.4",
+        "webpack": "^4.44.1",
+        "webpack-cli": "^3.3.12"
+    },
+    "files": [
+        "bin/**/*"
+    ],
+    "dependencies": {
+        "howler": "^2.2.0"
+    }
+}

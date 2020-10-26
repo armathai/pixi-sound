@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "AMD",
+        "outFile": "bin/pixi-sound.js",
+        "sourceMap": true,
+        "preserveConstEnums": true,
+        "removeComments": true,
+        "inlineSources": true,
+        "declaration": true,
+        "skipLibCheck": true,
+        "allowJs": true
+    },
+    "include": ["src/**/*.ts", "src/*.ts"],
+    "files": ["libs/howler.js"],
+    "exclude": [
+        "node_modules/**/*",
+        "bin/*",
+        "src/__examples__/ts/**/*.ts",
+        "src/__test__/**/*.ts",
+        "src/__test__/*.ts"
+    ]
+}
