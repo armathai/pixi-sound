@@ -1,6 +1,6 @@
 {
     "name": "@armathai/pixi-sound",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Playback library for Pixi.js",
     "main": "bin/pixi-sound.js",
     "types": "bin/pixi-sound.d.ts",
