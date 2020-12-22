@@ -13,11 +13,5 @@
     },
     "include": ["src/**/*.ts", "src/*.ts"],
     "files": ["libs/howler.js"],
-    "exclude": [
-        "node_modules/**/*",
-        "bin/*",
-        "src/__examples__/ts/**/*.ts",
-        "src/__test__/**/*.ts",
-        "src/__test__/*.ts"
-    ]
+    "exclude": ["node_modules/**/*", "bin/*", "src/__examples__/ts/**/*.ts", "__test__/**/*.ts", "__test__/*.ts"]
 }

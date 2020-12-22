@@ -3,7 +3,7 @@
 
 namespace pixisound {
     const sounds: { [key: string]: Sound } = {};
-    const pausedSounds: Sound[] = [];
+    const internalPausedSounds: Sound[] = [];
 
     export type Options = HowlOptions;
 
@@ -21,6 +21,9 @@ namespace pixisound {
 
     export function play(alias: string, options: PlayOptions = {}): void {
         const sound = sounds[alias];
+        if (!sound) {
+            return;
+        }
         const { loop = sound.loop(), volume = sound.volume(), complete = null } = options;
         sound.volume(volume);
         sound.loop(loop);
@@ -29,26 +32,15 @@ namespace pixisound {
     }
 
     export function stop(alias: string): void {
-        sounds[alias].stop();
+        sounds[alias] && sounds[alias].stop();
     }
 
     export function pause(alias: string): void {
-        const sound = sounds[alias];
-        if (!sound.playing()) {
-            return;
-        }
-        sound.pause();
-        pausedSounds.push(sound);
+        sounds[alias] && sounds[alias].pause();
     }
 
     export function resume(alias: string): void {
-        const sound = sounds[alias];
-        if (sound.playing() || pausedSounds.indexOf(sound) === -1) {
-            return;
-        }
-        sound.play();
-        const index = pausedSounds.indexOf(sound);
-        pausedSounds.splice(index, 1);
+        sounds[alias] && sounds[alias].play();
     }
 
     export function find(alias: string): Sound {
@@ -77,10 +69,30 @@ namespace pixisound {
     }
 
     export function pauseAll(): void {
-        Object.keys(sounds).forEach((s) => pause(s));
+        Object.keys(sounds).forEach((s) => internalPause(s));
+        !PIXI.utils.isMobile.apple.device && window.Howler._autoSuspend();
     }
 
     export function resumeAll(): void {
-        Object.keys(sounds).forEach((s) => resume(s));
+        Object.keys(sounds).forEach((s) => internalResume(s));
+    }
+
+    function internalPause(alias: string): void {
+        const sound = sounds[alias];
+        if (!sound.playing()) {
+            return;
+        }
+        sound.pause();
+        internalPausedSounds.push(sound);
+    }
+
+    function internalResume(alias: string): void {
+        const sound = sounds[alias];
+        if (sound.playing() || internalPausedSounds.indexOf(sound) === -1) {
+            return;
+        }
+        sound.play();
+        const index = internalPausedSounds.indexOf(sound);
+        internalPausedSounds.splice(index, 1);
     }
 }
